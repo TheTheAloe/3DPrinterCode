@@ -18,7 +18,7 @@ uart_pin: PC10
 diag_pin: PF3
 run_current: 0.800
 stealthchop_threshold: 0  
-driver_SGTHRS:75
+driver_SGTHRS:85
 
 [stepper_y]
 step_pin: PF12
@@ -36,7 +36,7 @@ uart_pin: PF13
 diag_pin: PF4
 run_current: 0.800
 stealthchop_threshold: 0
-driver_SGTHRS:95
+driver_SGTHRS:85
 
 [mcu]
 serial: /dev/serial/by-id/usb-Klipper_stm32g0b1xx_m8p-if00
