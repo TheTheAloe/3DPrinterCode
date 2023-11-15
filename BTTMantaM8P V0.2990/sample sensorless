@@ -1,0 +1,49 @@
+[include mainsail.cfg]
+[include macros.cfg]
+
+[stepper_x]
+step_pin: PE2
+dir_pin: !PB4
+enable_pin: !PC11
+microsteps: 16
+rotation_distance: 40
+endstop_pin: tmc2209_stepper_x:virtual_endstop
+position_endstop: 350
+position_max: 350
+homing_speed: 100
+homing_retract_dist: 10
+
+[tmc2209 stepper_x]
+uart_pin: PC10
+diag_pin: PF3
+run_current: 0.800
+stealthchop_threshold: 0  
+driver_SGTHRS:75
+
+[stepper_y]
+step_pin: PF12
+dir_pin: PF11
+enable_pin: !PB3
+microsteps: 16
+rotation_distance: 40
+endstop_pin: tmc2209_stepper_y:virtual_endstop
+position_endstop: 0
+position_max: 400
+homing_speed: 100
+
+[tmc2209 stepper_y]
+uart_pin: PF13
+diag_pin: PF4
+run_current: 0.800
+stealthchop_threshold: 0
+driver_SGTHRS:95
+
+[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32g0b1xx_m8p-if00
+
+[printer]
+kinematics: cartesian
+max_velocity: 500
+max_accel: 3000
+max_z_velocity: 25
+max_z_accel: 30
