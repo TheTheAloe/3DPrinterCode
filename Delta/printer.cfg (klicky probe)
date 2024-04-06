@@ -1,16 +1,15 @@
 [include mainsail.cfg]
 [include macros.cfg]
+[exclude_object]
 
 [printer]
 kinematics: delta
-max_velocity: 666
-max_accel: 2500
-max_z_velocity: 666
+max_velocity: 20000
+max_accel: 20000
+max_z_velocity: 20000
 minimum_z_position: -20
-delta_radius: 145.000
-print_radius: 145.000
-#Increase Buffer For Smoother printing
-#buffer_time_high: 10
+#delta_radius: 160.000
+print_radius: 146.000
 
 [temperature_sensor CB1]
 sensor_type: temperature_host
@@ -24,78 +23,77 @@ serial: /tmp/klipper_host_mcu
 step_pin: !PC6
 dir_pin: PA14
 enable_pin: !PC7
-microsteps: 16
-rotation_distance: 40
-endstop_pin: ^PC0
-position_endstop: 581
-full_steps_per_rotation: 400
-homing_speed: 50
-arm_length: 360.21
-
-[tmc2209 stepper_a]
-uart_pin: PB12
-run_current: 0.8
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200  
+endstop_pin: ^PC0 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
+#arm_length: 360.21
+position_endstop: 578.35
 
 #Back
 [stepper_b]
 step_pin: !PB10
 dir_pin: PB2
 enable_pin: !PB11
-microsteps: 16
-rotation_distance: 40
-endstop_pin: ^PC1
-#position_endstop: 545
-full_steps_per_rotation: 400
-homing_speed: 50
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200  
+endstop_pin: ^PC1 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
 #arm_length: 360.21
-
-[tmc2209 stepper_b]
-uart_pin: PC10
-run_current: 0.8
+#position_endstop: 545
 
 #Right
 [stepper_c]
 step_pin: !PB0
 dir_pin: PC5
 enable_pin: !PB1
-microsteps: 16
-rotation_distance: 40
-endstop_pin: ^PC2
-#position_endstop: 545
-full_steps_per_rotation: 400
-homing_speed: 50
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200
+endstop_pin: ^PC2 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
 #arm_length: 360.21
-
-[tmc2209 stepper_c]
-uart_pin: PC9
-run_current: 0.8
+#position_endstop: 545
 
 [extruder]
 step_pin: !PB3
-dir_pin: !PB4                                                        
+dir_pin: PB4                                                        
 enable_pin: !PD5
 full_steps_per_rotation: 200                                     
-rotation_distance: 35.283456                                           
-gear_ratio: 5.18:1                                                  
-microsteps: 32
-#max_extrude_only_distance: 1500.0
-#max_extrude_only_velocity: 70.0
-#max_extrude_only_accel: 1500.0
-nozzle_diameter: 0.400
+rotation_distance: 28.6
+#gear_ratio: 50:10 #for standard 10t motor
+gear_ratio: 50:8 #for sherpa mini 8t motor
+microsteps: 16
+full_steps_per_rotation: 200 #1.8deg Motor
+max_extrude_only_distance: 1500.0
+max_extrude_only_velocity: 70.0
+max_extrude_only_accel: 1500.0
+nozzle_diameter: 0.8
 filament_diameter: 1.750
-heater_pin: PC8 # HE0
-sensor_type: PT1000
+heater_pin: PC8 # HE0                                                        
+sensor_type: ATC Semitec 104NT-4-R025H42G
 sensor_pin: PA0 # T0
 control: pid
-pid_Kp: 19.318 
-pid_Ki: 0.800 
-pid_Kd: 116.633
+pid_kp: 18.667
+pid_ki: 1.220
+pid_kd: 71.403
 min_temp: 0
 max_temp: 250
 
 [tmc2209 extruder]
 uart_pin: PA13
-run_current: .55
+run_current: .5
 
 #bed
 [heater_bed]
@@ -122,12 +120,12 @@ max_temp: 150
 #klicky
 [probe]
 pin: PC15
-z_offset: 0
+z_offset: 6.9
 speed: 40
 
 [delta_calibrate]
 radius: 140
-speed: 100
+speed: 150
 horizontal_move_z: 10
 
 [bed_mesh]
@@ -150,7 +148,7 @@ round_probe_count: 5
 #  SET_FAN_SPEED FAN=electronics SPEED=.45
 
 [fan] #part cooling fan
-pin: cb1: gpio78 #aka PC14
+pin: cb1:gpio73
 max_power: 1
 cycle_time: 0.002
 hardware_pwm: false
@@ -177,14 +175,50 @@ pid_Kd: 0.1
 #*# <---------------------- SAVE_CONFIG ---------------------->
 #*# DO NOT EDIT THIS BLOCK OR BELOW. The contents are auto-generated.
 #*#
+#*# [probe]
+#*#
+#*# [printer]
+#*# delta_radius = 146.699458
+#*#
+#*# [stepper_a]
+#*# angle = 208.860606
+#*# arm_length = 360.210000
+#*# position_endstop = 582.300
+#*#
+#*# [stepper_b]
+#*# angle = 330.037569
+#*# arm_length = 360.210000
+#*# position_endstop = 584.154
+#*#
+#*# [stepper_c]
+#*# angle = 90.000000
+#*# arm_length = 360.210000
+#*# position_endstop = 585.044
+#*#
+#*# [delta_calibrate]
+#*# height0 = 6.9
+#*# height0_pos = 45830.000,46127.000,46257.000
+#*# height1 = 6.9
+#*# height1_pos = 50645.000,50998.000,43722.000
+#*# height2 = 6.9
+#*# height2_pos = 45419.000,53593.000,45931.000
+#*# height3 = 6.9
+#*# height3_pos = 43504.000,50426.000,50508.000
+#*# height4 = 6.9
+#*# height4_pos = 45311.000,45575.000,51408.000
+#*# height5 = 6.9
+#*# height5_pos = 49348.000,43830.000,49693.000
+#*# height6 = 6.9
+#*# height6_pos = 52012.000,45549.000,45717.000
+#*#
 #*# [bed_mesh default]
 #*# version = 1
 #*# points =
-#*# 	  6.050213, 6.050213, 6.050213, 6.050213, 6.050213
-#*# 	  5.766892, 5.766892, 4.800715, 4.091892, 4.091892
-#*# 	  6.707787, 5.230919, 4.337500, 3.887169, 3.582787
-#*# 	  4.987923, 4.987923, 3.985457, 3.681673, 3.681673
-#*# 	  3.482839, 3.482839, 3.482839, 3.482839, 3.482839
+#*# 	0.689426, 0.689426, 0.689426, 0.689426, 0.689426
+#*# 	0.121837, 0.121837, -0.019029, -0.271404, -0.271404
+#*# 	0.243863, 0.003648, -0.058969, -0.133239, -0.592654
+#*# 	0.141133, 0.141133, 0.128322, 0.030723, 0.030723
+#*# 	-0.345074, -0.345074, -0.345074, -0.345074, -0.345074
 #*# x_count = 5
 #*# y_count = 5
 #*# mesh_x_pps = 2
@@ -194,4 +228,4 @@ pid_Kd: 0.1
 #*# min_x = -130.0
 #*# max_x = 130.0
 #*# min_y = -130.0
-#*# max_y = 130.0
+#*# max_y = 130.01
