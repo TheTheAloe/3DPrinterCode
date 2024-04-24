@@ -1,0 +1,210 @@
+[include mainsail.cfg]
+[include macros.cfg]
+[exclude_object]
+
+[printer]
+kinematics: delta
+max_velocity: 20000
+max_accel: 20000
+max_z_velocity: 20000
+minimum_z_position: -20
+#delta_radius: 130.000
+print_radius: 146.000
+
+[temperature_sensor CB1]
+sensor_type: temperature_host
+[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32g0b1xx_2E0053000C50415833323420-if00
+[mcu cb1]
+serial: /tmp/klipper_host_mcu
+
+#left
+[stepper_a]
+step_pin: !PC6
+dir_pin: PA14
+enable_pin: !PC7
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200  
+endstop_pin: ^PC0 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
+#arm_length: 360.21
+#position_endstop: 528.35
+
+#Back
+[stepper_b]
+step_pin: !PB10
+dir_pin: PB2
+enable_pin: !PB11
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200  
+endstop_pin: ^PC1 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
+#arm_length: 360.21
+#position_endstop: 528.35
+
+#Right
+[stepper_c]
+step_pin: !PB0
+dir_pin: PC5
+enable_pin: !PB1
+rotation_distance: 40 
+microsteps: 32 
+full_steps_per_rotation: 200
+endstop_pin: ^PC2 
+homing_speed: 60  
+homing_retract_dist: 5
+homing_positive_dir: true
+step_pulse_duration: 0.000003
+#arm_length: 360.21
+#position_endstop: 528.35
+
+[extruder]
+step_pin: !PB3
+dir_pin: PB4                                                        
+enable_pin: !PD5
+full_steps_per_rotation: 200                                     
+rotation_distance: 28.6
+#gear_ratio: 50:10 #for standard 10t motor
+gear_ratio: 50:8 #for sherpa mini 8t motor
+microsteps: 16
+full_steps_per_rotation: 200 #1.8deg Motor
+max_extrude_only_distance: 1500.0
+max_extrude_only_velocity: 70.0
+max_extrude_only_accel: 1500.0
+nozzle_diameter: 0.8
+filament_diameter: 1.750
+heater_pin: PC8 # HE0                                                        
+sensor_type: ATC Semitec 104NT-4-R025H42G
+sensor_pin: PA0 # T0
+control: pid
+pid_kp: 18.667
+pid_ki: 1.220
+pid_kd: 71.403
+min_temp: 0
+max_temp: 250
+
+[tmc2209 extruder]
+uart_pin: PA13
+run_current: .5
+
+#bed
+[heater_bed]
+heater_pin: PD8
+sensor_type: EPCOS 100K B57560G104F
+sensor_pin: PC4
+control: pid
+pid_Kp: 66.567 
+pid_Ki: 0.868 
+pid_Kd: 1275.597
+min_temp: 0
+max_temp: 140
+
+######
+#bed leveling sensor
+######
+#[bltouch]
+#ensor_pin: PC14
+#control_pin: PA1
+#z_offset: 0
+#pin_move_time: 0.4
+#speed: 40
+
+#removable
+[probe]
+pin: !PC15
+z_offset: .2
+speed: 40
+
+[delta_calibrate]
+radius: 140
+speed: 150
+horizontal_move_z: 10
+
+[bed_mesh]
+speed: 80
+horizontal_move_z: 10
+mesh_radius: 130
+mesh_origin: 0, 0
+round_probe_count: 5
+
+######
+#FANS
+######
+#fans
+#[fan_generic electronics] #mcu fan#
+#pin: PD2
+
+#[delayed_gcode start_fan_at_idle_speed]
+#initial_duration: 1.0
+#gcode:
+#  SET_FAN_SPEED FAN=electronics SPEED=.45
+
+[fan] #part cooling fan
+pin: cb1:gpio73
+max_power: 1
+cycle_time: 0.002
+hardware_pwm: false
+shutdown_speed: 0
+
+[heater_fan my_nozzle_fan] #hotend fan
+pin: PD3
+heater: extruder
+heater_temp: 50.0
+fan_speed: 1.0
+
+[temperature_fan Case_fans]
+pin: PD2
+sensor_type: temperature_host
+off_below: 0.4
+min_temp: 10
+max_temp: 90
+target_temp: 47
+control: pid
+pid_Kp: 2
+pid_Ki: 4
+pid_Kd: 0.1
+
+#*# <---------------------- SAVE_CONFIG ---------------------->
+#*# DO NOT EDIT THIS BLOCK OR BELOW. The contents are auto-generated.
+#*#
+#*# [printer]
+#*# delta_radius = 146.226367
+#*#
+#*# [stepper_a]
+#*# angle = 209.209675
+#*# arm_length = 360.210000
+#*# position_endstop = 534.247849
+#*#
+#*# [stepper_b]
+#*# angle = 330.234307
+#*# arm_length = 360.210000
+#*# position_endstop = 532.326487
+#*#
+#*# [stepper_c]
+#*# angle = 90.000000
+#*# arm_length = 360.210000
+#*# position_endstop = 533.570452
+#*#
+#*# [delta_calibrate]
+#*# height0 = 0.2
+#*# height0_pos = 85420.000,85083.000,85464.000
+#*# height1 = 0.2
+#*# height1_pos = 93622.000,93394.000,80574.000
+#*# height2 = 0.2
+#*# height2_pos = 84316.000,97863.000,84535.000
+#*# height3 = 0.2
+#*# height3_pos = 80838.000,92349.000,92627.000
+#*# height4 = 0.2
+#*# height4_pos = 84274.000,83872.000,94328.000
+#*# height5 = 0.2
+#*# height5_pos = 91528.000,80784.000,91405.000
+#*# height6 = 0.2
+#*# height6_pos = 96140.000,83860.000,84322.000
